@@ -7,7 +7,7 @@
 
 class ContaBancaria:
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.titular = ""
         self.numero_conta = 0
         self.saldo = 0.00
