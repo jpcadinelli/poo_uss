@@ -41,18 +41,46 @@ class Carro:
     def setCor(self, cor):
         self.cor = cor
 
-    def getVelocidade_atual(self):
-        return self.velocidade_atual
-    
-    def setVelocidade_atual(self, velocidade_atual):
-        self.velocidade_atual = velocidade_atual
-
     def getEstado(self):
         return self.estado
     
     def setEstado(self, estado):
         self.estado = estado
+    
+    def setVelocidadeAtual(self, velocidade):
+        if self.estado == "ligado":
+            if velocidade >= 0:
+                self.velocidade_atual = velocidade
+
+    def getVelocidadeAtual(self):
+        return self.velocidade_atual
+
+    def desligar(self):
+        self.estado = "desligado"
+        self.velocidade_atual = 0
+
+    def ligar(self):
+        self.estado = "ligado"
+
+    def acelerar(self, quantidade):
+        if self.estado == "ligado":
+            self.velocidade_atual += quantidade
+
+    def frear(self, quantidade):
+        if self.estado == "ligado":
+            self.velocidade_atual -= quantidade
+            if self.velocidade_atual < 0:
+                self.velocidade_atual = 0
 
 carro = Carro()
 carro.setMarca("VW")
 print(carro.getMarca())
+carro.ligar()
+carro.setVelocidadeAtual(100)
+print(carro.getVelocidadeAtual())
+carro.acelerar(30)
+print(carro.getVelocidadeAtual())
+carro.frear(20)
+print(carro.getVelocidadeAtual())
+carro.desligar()
+print(carro.getVelocidadeAtual())
