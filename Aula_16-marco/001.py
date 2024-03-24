@@ -1,4 +1,3 @@
-# Enunciado do exercício
 # Classe Carro:
 
 # Atributos: marca, modelo, ano, cor, velocidade_atual
