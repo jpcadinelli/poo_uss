@@ -4,6 +4,18 @@ class Pessoa:
         self.idade = 0
         self.naturalidade = Cidade()
         self.escolaridade = Escolaridade()
+   
+    def getNome(self):
+        return self.nome
+    
+    def setNome(self, nome):
+        self.nome = nome
+       
+    def getIdade(self):
+        return self.idade
+    
+    def setIdade(self, idade):
+        self.idade = idade
 
 class Aluno(Pessoa):
     def __init__(self):
