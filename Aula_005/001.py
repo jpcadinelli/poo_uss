@@ -17,25 +17,29 @@ class Professor(Pessoa):
 
 class Escola:
     def __init__(self):
+        self.nomeEscola = ""
         self.direcao = Professor()
         self.cidade = Cidade()
 
 class Curso:
     def __init__(self):
+        self.nomeCurso = ""
         self.cordenacao = Professor()
         self.tipoEnsino = TipoEnsino()
+        self.escola = Escola()
 
 class TipoEnsino:
     def __init__(self):
-        pass
+        self.tipoEnsino = ""
 
 class Escolaridade:
     def __init__(self):
-        pass
+        self.escolaridade = ""
 
 class Estado:
     def __init__(self):
-        pass
+        self.estado = ""
+        self.pais = ""
 
 class Cidade:
     def __init__(self):
