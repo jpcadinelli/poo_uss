@@ -67,6 +67,9 @@ class Pessoa:
     def set_nome(self, nome):
         self.nome = nome
 
+    def pessoa(self, nome):
+        self.nome = nome
+
 class Cliente(Pessoa):
     def __init__(self, cpf):
         Pessoa.__init__(self)
@@ -78,6 +81,10 @@ class Cliente(Pessoa):
     def set_cpf(self, cpf):
         self.cpf = cpf
 
+    def cliente(self, nome, cpf):
+        self.pessoa(nome)
+        self.cpf = cpf
+
 class Fornecedor(Pessoa):
     def __init__(self, cnpj):
         Pessoa.__init__(self)
@@ -87,6 +94,10 @@ class Fornecedor(Pessoa):
         return self.cnpj
 
     def set_cnpj(self, cnpj):
+        self.cnpj = cnpj
+
+    def fornecedor(self, nome, cnpj):
+        self.pessoa(nome)
         self.cnpj = cnpj
 
 class Transicao(Compra, Venda):
