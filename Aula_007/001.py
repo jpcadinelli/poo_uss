@@ -1,11 +1,11 @@
 class Produto:
-    def __init__(self, nome, qtdeEstoque, precoUnit, estoqueMinimo, estoqueMaximo, historico):
+    def __init__(self, nome, qtdeEstoque, precoUnit, estoqueMinimo, estoqueMaximo):
         self.nome = nome
         self.qtdeEstoque = qtdeEstoque
         self.precoUnit = precoUnit
         self.estoqueMinimo = estoqueMinimo
         self.estoqueMaximo = estoqueMaximo
-        self.historico = historico
+        self.historico = []
 
     def get_nome(self):
         return self.nome
@@ -41,7 +41,41 @@ class Produto:
         return self.historico
 
     def set_historico(self, historico):
-        self.historico = historico
+        self.historico.append(historico)
+
+    def registrarHistorico(self, transacao):
+        self.historico = transacao
+
+    def exibirHistorico(self):
+        return self.historico
+
+    def debitarEstoque(self, quantidade):
+        self.qtdeEstoque -= quantidade
+
+    def creditarEstoque(self, quantidade):
+        self.qtdeEstoque += quantidade
+
+    def verificarEstoqueBaixo(self):
+        return self.qtdeEstoque < self.estoqueMinimo
+
+    def verificarEstoqueInsuficiente(self, quantidade):
+        return quantidade > self.qtdeEstoque
+
+    def verificarEstoqueExcedente(self, quantidade):
+        return (quantidade + self.qtdeEstoque) >= self.estoqueMaximo
+
+    def calculaValorVenda(self, quantidade):
+        return self.precoUnit * quantidade
+
+    def vender(self, dataVenda, cliente, qtdeVendida):
+        venda = Venda()
+        if venda.vender(dataVenda, cliente, self, qtdeVendida):
+            self.registrarHistorico(f"Venda do produto {self.get_nome()}")
+
+    def comprar(self, dataCompra, fornecedor, qtdeCompra, precoUnit):
+        compra = Compra()
+        if compra.comprar(dataCompra, fornecedor, qtdeCompra, precoUnit, self):
+            self.registrarHistorico(f"Compra do produto {self.get_nome()}")
 
 
 class Pessoa:
@@ -113,7 +147,24 @@ class Compra(Transacao):
     def set_preco(self, preco):
         self.preco = preco
 
+    def comprar(self, dataCompra, fornecedor, qtdeCompra, produto):
+        if produto.verificarEstoqueExcedente(qtdeCompra):
+            print("Ultrapassou a quantidade máxima")
+            return False
+        produto.creditarEstoque(qtdeCompra)
+        return True
+
 
 class Venda(Transacao):
     def __init__(self):
         Transacao.__init__(self)
+
+    def vender(self, produto, qtdeVendida):
+        if produto.verificarEstoqueInsuficiente(qtdeVendida):
+            print("Estoque insuficiente")
+            return False
+        produto.debitarEstoque(qtdeVendida)
+        print("O valor da venda é R$", produto.calculaValorVenda(qtdeVendida))
+        if produto.verificarEstoqueBaixo():
+            print("Estoque baixo")
+        return True
