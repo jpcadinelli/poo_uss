@@ -7,7 +7,6 @@ class Produto:
         self.estoqueMaximo = estoqueMaximo
         self.historico = historico
 
-
     def get_nome(self):
         return self.nome
 
@@ -44,6 +43,7 @@ class Produto:
     def set_historico(self, historico):
         self.historico = historico
 
+
 class Compra:
     def __init__(self, preco):
         self.preco = preco
@@ -54,8 +54,10 @@ class Compra:
     def set_preco(self, preco):
         self.preco = preco
 
+
 class Venda:
     pass
+
 
 class Pessoa:
     def __init__(self, nome):
@@ -69,6 +71,7 @@ class Pessoa:
 
     def pessoa(self, nome):
         self.nome = nome
+
 
 class Cliente(Pessoa):
     def __init__(self, cpf):
@@ -85,6 +88,7 @@ class Cliente(Pessoa):
         self.pessoa(nome)
         self.cpf = cpf
 
+
 class Fornecedor(Pessoa):
     def __init__(self, cnpj):
         Pessoa.__init__(self)
@@ -99,6 +103,7 @@ class Fornecedor(Pessoa):
     def fornecedor(self, nome, cnpj):
         self.pessoa(nome)
         self.cnpj = cnpj
+
 
 class Transicao(Compra, Venda):
     def __init__(self, dataTransacao, qtde):
