@@ -44,21 +44,6 @@ class Produto:
         self.historico = historico
 
 
-class Compra:
-    def __init__(self, preco):
-        self.preco = preco
-
-    def get_preco(self):
-        return self.preco
-
-    def set_preco(self, preco):
-        self.preco = preco
-
-
-class Venda:
-    pass
-
-
 class Pessoa:
     def __init__(self, nome):
         self.nome = nome
@@ -105,10 +90,8 @@ class Fornecedor(Pessoa):
         self.cnpj = cnpj
 
 
-class Transicao(Compra, Venda):
+class Transacao():
     def __init__(self, dataTransacao, qtde):
-        Compra.__init__(self)
-        Venda.__init__(self)
         self.dataTransacao = dataTransacao
         self.qtde = qtde
 
@@ -117,3 +100,20 @@ class Transicao(Compra, Venda):
 
     def set_dataTransacao(self, dataTransacao):
         self.dataTransacao = dataTransacao
+
+
+class Compra(Transacao):
+    def __init__(self, preco):
+        Transacao.__init__(self)
+        self.preco = preco
+
+    def get_preco(self):
+        return self.preco
+
+    def set_preco(self, preco):
+        self.preco = preco
+
+
+class Venda(Transacao):
+    def __init__(self):
+        Transacao.__init__(self)
